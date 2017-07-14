@@ -1,0 +1,100 @@
+group 'joshua-Jweb'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "maven-publish"
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url nexusPath }
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        maven { url nexusPath }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            url nexusSnapshotsPath
+            credentials {
+                username 'admin'
+                password 'admin123'
+            }
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+}
+
+project.ext {
+    jerseyVersion = '2.17'
+    jettyVersion = '9.3.4.RC0'
+    jacksonVersion = '2.6.1'
+    guavaVersion = '19.0-rc1'
+    guiceVersion = '4.0'
+    logbackVersion = '1.1.3'
+    loggingVersion = '3.3.0.Final'
+    slf4jVersion = '1.7.12'
+    flywayVersion = '2.3.1'
+    hibernateVersion = '5.0.1.Final'
+    hibernateJpaVersion = '1.0.0.Final'
+    grizzlyVersion = "2.3.22"
+    tyrusVersion = "1.11"
+    junitVersion = '4.12'
+    mockitoVersion = '2.0.2-beta'
+    hk2Version = '2.4.0-b31'
+    jersey2GuiceVersion = '0.10'
+    reflectionsVersion = '0.9.9-RC1'
+    tomcatVersion = '8.0.26'
+    findbugsVersion = '3.0.0'
+    injectVersion = '1'
+    validationVersion = '1.1.0.Final'
+    servletVersion = '3.1.0'
+    websocketVersion = '1.1'
+    gmbalVersion = '4.0.0-b001'
+    h2Version = '1.4.188'
+    asmVersion = '5.0.4'
+    ojdbc6Version = '11.2.0.1.0'
+}
+
+dependencies {
+    compile "com.google.code.findbugs:jsr305:$findbugsVersion"
+    compile "javax.inject:javax.inject:$injectVersion"
+    compile "javax.validation:validation-api:$validationVersion"
+
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
+    compile "com.google.inject:guice:$guiceVersion"
+
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+    compile "org.hibernate:hibernate-validator:$hibernateVersion"
+
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+}
+
+configurations.all {
+    resolutionStrategy {
+        force "org.jboss.logging:jboss-logging:$loggingVersion"
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
