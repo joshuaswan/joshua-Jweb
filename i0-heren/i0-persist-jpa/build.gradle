@@ -1,0 +1,13 @@
+dependencies {
+    compile project(':i0-core')
+
+    compile "com.google.inject.extensions:guice-persist:$guiceVersion"
+    compile "com.googlecode.flyway:flyway-core:$flywayVersion"
+    compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$hibernateJpaVersion"
+
+    testCompile project(':i0-grizzly')
+    testCompile "org.eclipse.jetty:jetty-client:$jettyVersion"
+    testRuntime "com.h2database:h2:$h2Version"
+    runtime "com.oracle:ojdbc6:$ojdbc6Version"
+}

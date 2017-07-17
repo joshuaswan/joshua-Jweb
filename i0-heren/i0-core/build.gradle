@@ -1,0 +1,21 @@
+dependencies {
+    compile "javax.servlet:javax.servlet-api:$servletVersion"
+    compile "org.ow2.asm:asm:$asmVersion"
+
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:$jacksonVersion"
+    compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion"
+    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jacksonVersion"
+
+    compile "ch.qos.logback:logback-classic:$logbackVersion"
+    compile "org.slf4j:jul-to-slf4j:$slf4jVersion"
+    compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+    compile "org.slf4j:log4j-over-slf4j:$slf4jVersion"
+
+    compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
+    compile "org.hibernate.javax.persistence:hibernate-jpa-2.1-api:$hibernateJpaVersion"
+
+    testCompile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+    testCompile "org.eclipse.jetty:jetty-client:$jettyVersion"
+}

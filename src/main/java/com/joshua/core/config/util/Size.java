@@ -18,6 +18,11 @@ import static com.google.common.collect.ImmutableSet.copyOf;
  * Created by joshua on 2017/7/14.
  */
 public class Size {
+
+    public Size(long quantity,Unit unit){
+        this.quantity = (int) quantity;
+        this.unit = unit;
+    }
     public Size(int quantity, Unit unit) {
         this.quantity = quantity;
         this.unit = unit;
@@ -50,7 +55,7 @@ public class Size {
     @NotNull
     private final Unit unit;
 
-    private long value(){
+    long value(){
         return (long) (quantity * unit.bits);
     }
 

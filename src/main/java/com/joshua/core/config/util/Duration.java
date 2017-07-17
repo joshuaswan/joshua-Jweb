@@ -19,23 +19,22 @@ import static com.google.common.collect.ImmutableSet.copyOf;
  * Created by joshua on 2017/7/14.
  */
 public class Duration {
+    public static enum Unit {
+        MILLISECONDS(TimeUnit.MILLISECONDS, "MS", "MILLISECOND"),
+        SECONDS(TimeUnit.SECONDS, "S", "SECOND"),
+        MINUTES(TimeUnit.MINUTES, "M", "MINUTE"),
+        HOURS(TimeUnit.HOURS, "H", "HOUR"),
+        DAYS(TimeUnit.DAYS, "D", "DAY");
 
-    public Duration(double quantity, Unit unit) {
-        this.quantity = quantity;
-        this.unit = unit;
-    }
-
-    public static enum Unit{
-        ;
         private final TimeUnit timeUnit;
         private final ImmutableSet<String> representations;
 
-        private Unit(TimeUnit timeUnit, ImmutableSet<String> representations) {
+        private Unit(TimeUnit timeUnit, String... representations) {
             this.timeUnit = timeUnit;
-            this.representations = representations;
+            this.representations = copyOf(representations);
         }
 
-        private static Optional<Unit> parse(final String name){
+        private static Optional<Unit> parse(final String name) {
             return Iterables.tryFind(copyOf(Unit.values()), new Predicate<Unit>() {
                 @Override
                 public boolean apply(@Nullable Unit input) {
@@ -49,29 +48,35 @@ public class Duration {
     @NotNull
     private final Unit unit;
 
-    private static Unit unit(String trimmed){
-        Optional<Unit> unit = Unit.parse(DIGIT.trimLeadingFrom(trimmed).toUpperCase());
-        Preconditions.checkArgument(unit.isPresent(),"invalid size format");
-        return unit.get();
+    public Duration(double quantity, Unit unit) {
+        this.quantity = quantity;
+        this.unit = unit;
     }
 
-    public long value(){
+    public long value() {
         return (long) (quantity * unit.timeUnit.toMillis(1));
     }
 
     @JsonCreator
-    public static Duration valueOf(String text){
+    public static Duration valueOf(String text) {
         String trimmed = WHITESPACE.removeFrom(text).trim();
-        return new Duration(quantity(trimmed),unit(trimmed));
+        return new Duration(quantity(trimmed), unit(trimmed));
     }
 
     private static double quantity(String trimmed) {
-        try{
+        try {
             return Double.parseDouble(JAVA_LETTER.trimTrailingFrom(trimmed));
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("invalid size format");
         }
     }
+
+    private static Unit unit(String trimmed) {
+        Optional<Unit> unit = Unit.parse(DIGIT.trimLeadingFrom(trimmed).toUpperCase());
+        Preconditions.checkArgument(unit.isPresent(), "invalid size format");
+        return unit.get();
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -81,14 +86,16 @@ public class Duration {
         Duration duration = (Duration) o;
 
         if (Double.compare(duration.quantity, quantity) != 0) return false;
-        return unit == duration.unit;
+        if (unit != duration.unit) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        temp = Double.doubleToLongBits(quantity);
+        temp = quantity != +0.0d ? Double.doubleToLongBits(quantity) : 0L;
         result = (int) (temp ^ (temp >>> 32));
         result = 31 * result + unit.hashCode();
         return result;

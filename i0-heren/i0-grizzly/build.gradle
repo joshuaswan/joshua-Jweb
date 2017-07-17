@@ -1,0 +1,23 @@
+dependencies {
+    compile project(':i0-jersey')
+    compile project(':i0-persist-jpa')
+
+    compile "com.google.inject.extensions:guice-servlet:$guiceVersion"
+    compile "org.glassfish.grizzly:grizzly-http-servlet:$grizzlyVersion"
+    compile "org.glassfish.grizzly:grizzly-framework-monitoring:$grizzlyVersion"
+    compile "org.glassfish.grizzly:grizzly-http-monitoring:$grizzlyVersion"
+    compile "org.glassfish.grizzly:grizzly-http-server-monitoring:$grizzlyVersion"
+    compile "org.glassfish.grizzly:grizzly-websockets:$grizzlyVersion"
+
+    compile ("org.glassfish.tyrus:tyrus-container-grizzly-server:$tyrusVersion"){
+        exclude module: 'tyrus-core'
+    }
+
+    compile "javax.websocket:javax.websocket-api:$websocketVersion"
+
+    compile "org.glassfish.tyrus:tyrus-core:$tyrusVersion"
+    compile "org.glassfish.gmbal:gmbal:$gmbalVersion"
+    testCompile "org.eclipse.jetty:jetty-client:$jettyVersion"
+
+    testCompile "org.eclipse.jetty.websocket:websocket-client:$jettyVersion"
+}
