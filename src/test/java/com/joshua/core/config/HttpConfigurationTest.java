@@ -9,4 +9,8 @@ import static org.junit.Assert.*;
  */
 public class HttpConfigurationTest {
 
+    @Test
+    public void test(){
+        System.out.println(HttpConfiguration.class.toString());
+    }
 }

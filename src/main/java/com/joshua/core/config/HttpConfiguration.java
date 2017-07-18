@@ -384,4 +384,21 @@ public class HttpConfiguration {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "HttpConfiguration{" +
+                "host=" + host +
+                ", port=" + port +
+                ", minThread=" + minThread +
+                ", maxThread=" + maxThread +
+                ", maxIdleTime=" + maxIdleTime +
+                ", acceptorThreads=" + acceptorThreads +
+                ", selectorThreads=" + selectorThreads +
+                ", acceptQueueSize=" + acceptQueueSize +
+                ", soLingerTime=" + soLingerTime +
+                ", idleTimeout=" + idleTimeout +
+                ", ssl=" + ssl +
+                '}';
+    }
 }

@@ -113,4 +113,13 @@ public class Configuration {
             return new Configuration(http.build(), logging.build(), properties);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "http=" + http.toString() +
+                ", logging=" + logging +
+                ", properties=" + properties +
+                '}';
+    }
 }
