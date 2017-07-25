@@ -1,4 +1,4 @@
-package com.joshua.core.core.internal;
+package com.joshua.core.core;
 
 /**
  * Created by joshua on 2017/7/24.

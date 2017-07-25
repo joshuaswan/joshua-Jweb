@@ -1,4 +1,4 @@
-package com.joshua.core.core.internal;
+package com.joshua.core.core;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -19,7 +19,7 @@ import static com.google.common.collect.Iterables.filter;
  */
 public class ServletAnnotations {
 
-    public static ImmutableSet<String> urlPatternes(Class<?> servletOrFiler) {
+    public static ImmutableSet<String> urlPatterns(Class<?> servletOrFiler) {
         if (servletOrFiler.isAnnotationPresent(WebServlet.class)) {
             WebServlet webServlet = servletOrFiler.getAnnotation(WebServlet.class);
             return copyOf(filter(ImmutableSet.<String>builder().add(webServlet.urlPatterns()).add(webServlet.value()).build(), NOT_EMPTY));
@@ -41,7 +41,7 @@ public class ServletAnnotations {
         @Nullable
         @Override
         public String apply(@Nullable Class<?> input) {
-            return String.format("%s --> %s", input, on(". ").join(urlPatternes(input)));
+            return String.format("%s --> %s", input, on(". ").join(urlPatterns(input)));
         }
     };
 }
